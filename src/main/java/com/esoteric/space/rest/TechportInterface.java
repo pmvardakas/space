@@ -1,6 +1,7 @@
 package com.esoteric.space.rest;
 
-import com.esoteric.space.models.ProjectReferenceContainer;
+import com.esoteric.space.models.project.ProjectContainer;
+import com.esoteric.space.models.projects.ProjectsContainer;
 import com.esoteric.space.utilities.SecurityStrings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,8 +26,14 @@ public class TechportInterface {
         this.sec = sec;
     }
 
-    public ProjectReferenceContainer getProjectListing() {
-        ProjectReferenceContainer data = template.getForObject(URL + "projects" + "?" + sec.getApiPrefix() + sec.getApiKey(), ProjectReferenceContainer.class);
+    public ProjectsContainer getProjectListing() {
+        ProjectsContainer data = template.getForObject(URL + "projects" + "?" + sec.getApiPrefix() + sec.getApiKey(), ProjectsContainer.class);
+
+        return data;
+    }
+
+    public ProjectContainer getProjectById(final int id) {
+        ProjectContainer data = template.getForObject(URL + "projects/" + id + "?" +  sec.getApiPrefix() + sec.getApiKey(), ProjectContainer.class);
 
         return data;
     }

@@ -1,13 +1,12 @@
 package com.esoteric.space.controllers;
 
-import com.esoteric.space.models.ProjectReferenceContainer;
+import com.esoteric.space.models.project.ProjectContainer;
+import com.esoteric.space.models.projects.ProjectsContainer;
 import com.esoteric.space.services.ProjectService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ProjectCtrl {
@@ -22,11 +21,21 @@ public class ProjectCtrl {
     }
 
     @RequestMapping(value = "/projects", method = RequestMethod.GET)
-    public ProjectReferenceContainer projects() {
+    public ProjectsContainer projects() {
         logger.info("projects()");
 
-        final ProjectReferenceContainer projects = projectService.getProjects();
+        final ProjectsContainer projects = projectService.getProjects();
 
         return projects;
+    }
+
+    @RequestMapping(
+            value = "/projects/project",
+            params = {"id"},
+            method = RequestMethod.GET)
+    public ProjectContainer project(@RequestParam("id") final int id) {
+        final ProjectContainer project = projectService.getProjectById(id);
+
+        return project;
     }
 }
