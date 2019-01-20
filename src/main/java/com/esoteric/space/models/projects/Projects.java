@@ -3,6 +3,7 @@ package com.esoteric.space.models.projects;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -15,25 +16,56 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "projects"
+    "projects",
+    "totalCount"
 })
 public class Projects implements Serializable
 {
 
     @JsonProperty("projects")
-    private ProjectsContainer projects;
+    private List<Project> projects = null;
+    @JsonProperty("totalCount")
+    private long totalCount;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-    private final static long serialVersionUID = -8791367412194417834L;
+    private final static long serialVersionUID = 2480916613214283052L;
+
+    /**
+     * No args constructor for use in serialization
+     * 
+     */
+    public Projects() {
+    }
+
+    /**
+     * 
+     * @param projects
+     * @param totalCount
+     */
+    public Projects(List<Project> projects, long totalCount) {
+        super();
+        this.projects = projects;
+        this.totalCount = totalCount;
+    }
 
     @JsonProperty("projects")
-    public ProjectsContainer getProjects() {
+    public List<Project> getProjects() {
         return projects;
     }
 
     @JsonProperty("projects")
-    public void setProjects(ProjectsContainer projects) {
+    public void setProjects(List<Project> projects) {
         this.projects = projects;
+    }
+
+    @JsonProperty("totalCount")
+    public long getTotalCount() {
+        return totalCount;
+    }
+
+    @JsonProperty("totalCount")
+    public void setTotalCount(long totalCount) {
+        this.totalCount = totalCount;
     }
 
     @JsonAnyGetter
@@ -48,7 +80,7 @@ public class Projects implements Serializable
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(projects).append(additionalProperties).toHashCode();
+        return new HashCodeBuilder().append(projects).append(totalCount).append(additionalProperties).toHashCode();
     }
 
     @Override
@@ -60,7 +92,7 @@ public class Projects implements Serializable
             return false;
         }
         Projects rhs = ((Projects) other);
-        return new EqualsBuilder().append(projects, rhs.projects).append(additionalProperties, rhs.additionalProperties).isEquals();
+        return new EqualsBuilder().append(projects, rhs.projects).append(totalCount, rhs.totalCount).append(additionalProperties, rhs.additionalProperties).isEquals();
     }
 
 }

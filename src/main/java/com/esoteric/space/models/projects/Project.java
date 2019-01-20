@@ -15,27 +15,35 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "id",
-    "lastUpdated"
+    "lastUpdated",
+    "id"
 })
 public class Project implements Serializable
 {
 
-    @JsonProperty("id")
-    private long id;
     @JsonProperty("lastUpdated")
     private String lastUpdated;
+    @JsonProperty("id")
+    private long id;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-    private final static long serialVersionUID = 3701225438642122371L;
+    private final static long serialVersionUID = -1436646414449645840L;
 
-    @JsonProperty("id")
-    public long getId() {
-        return id;
+    /**
+     * No args constructor for use in serialization
+     * 
+     */
+    public Project() {
     }
 
-    @JsonProperty("id")
-    public void setId(long id) {
+    /**
+     * 
+     * @param id
+     * @param lastUpdated
+     */
+    public Project(String lastUpdated, long id) {
+        super();
+        this.lastUpdated = lastUpdated;
         this.id = id;
     }
 
@@ -47,6 +55,16 @@ public class Project implements Serializable
     @JsonProperty("lastUpdated")
     public void setLastUpdated(String lastUpdated) {
         this.lastUpdated = lastUpdated;
+    }
+
+    @JsonProperty("id")
+    public long getId() {
+        return id;
+    }
+
+    @JsonProperty("id")
+    public void setId(long id) {
+        this.id = id;
     }
 
     @JsonAnyGetter
