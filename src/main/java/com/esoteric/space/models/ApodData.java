@@ -1,8 +1,9 @@
 package com.esoteric.space.models;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class ApodData {
+public class ApodData implements Serializable {
     private String copyright;
     private String date;
     private String explanation;
@@ -13,6 +14,14 @@ public class ApodData {
     private String title;
 
     public ApodData() {
+        this.copyright = "";
+        this.date = "";
+        this.explanation = "";
+        this.hdurl = "";
+        this.url = "";
+        this.media_type = "";
+        this.service_version = "";
+        this.title = "";
     }
 
     public ApodData(String copyright, String date, String explanation, String hdurl, String url, String media_type, String service_version, String title) {
@@ -24,27 +33,6 @@ public class ApodData {
         this.media_type = media_type;
         this.service_version = service_version;
         this.title = title;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ApodData apodData = (ApodData) o;
-        return Objects.equals(copyright, apodData.copyright) &&
-                Objects.equals(date, apodData.date) &&
-                Objects.equals(explanation, apodData.explanation) &&
-                Objects.equals(hdurl, apodData.hdurl) &&
-                Objects.equals(url, apodData.url) &&
-                Objects.equals(media_type, apodData.media_type) &&
-                Objects.equals(service_version, apodData.service_version) &&
-                Objects.equals(title, apodData.title);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(copyright, date, explanation, hdurl, url, media_type, service_version, title);
     }
 
     public String getCopyright() {
@@ -109,5 +97,25 @@ public class ApodData {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ApodData apodData = (ApodData) o;
+        return Objects.equals(copyright, apodData.copyright) &&
+                Objects.equals(date, apodData.date) &&
+                Objects.equals(explanation, apodData.explanation) &&
+                Objects.equals(hdurl, apodData.hdurl) &&
+                Objects.equals(url, apodData.url) &&
+                Objects.equals(media_type, apodData.media_type) &&
+                Objects.equals(service_version, apodData.service_version) &&
+                Objects.equals(title, apodData.title);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(copyright, date, explanation, hdurl, url, media_type, service_version, title);
     }
 }

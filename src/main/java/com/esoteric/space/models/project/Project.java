@@ -1,9 +1,6 @@
 package com.esoteric.space.models.project;
 
-import com.esoteric.space.models.projects.Projects;
-
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Objects;
 
 public class Project implements Serializable {
@@ -39,6 +36,36 @@ public class Project implements Serializable {
     private Library library;
 
     public Project() {
+        this.id = -1;
+        this.lastUpdated = "";
+        this.title = "";
+        this.acronym = "";
+        this.status = "";
+        this.description = "";
+        this.benefits = "";
+        this.startDate = "";
+        this.endDate = "";
+        this.executiveSummary = "";
+        this.technologyMaturityStart = "";
+        this.technologyMaturityCurrent = "";
+        this.technologyMaturityEnd = "";
+        this.primaryTas = new TechnologyAreas();
+        this.additionalTas = "";
+        this.destinations = new Destinations();
+        this.supportedMissionType = "";
+        this.responsibleProgram = "";
+        this.responsibleMissionDirectorateOrOffice = "";
+        this.leadOrganization = new Organization();
+        this.supportingOrganizations = new Organizations();
+        this.coFundingPartners = new Organizations();
+        this.workLocations = new WorkLocations();
+        this.programDirectors = new ProgramDirectors();
+        this.programManagers = new ProgramManagers();
+        this.projectManagers = new ProjectManagers();
+        this.principalInvestigators = new PrincipalInvestigators();
+        this.coInvestigators = new CoInvestigators();
+        this.website = "";
+        this.library = new Library();
     }
 
     public Project(long id, String lastUpdated, String title, String acronym, String status, String description, String benefits, String startDate, String endDate, String executiveSummary, String technologyMaturityStart, String technologyMaturityCurrent, String technologyMaturityEnd, TechnologyAreas primaryTas, String additionalTas, Destinations destinations, String supportedMissionType, String responsibleProgram, String responsibleMissionDirectorateOrOffice, Organization leadOrganization, Organizations supportingOrganizations, Organizations coFundingPartners, WorkLocations workLocations, ProgramDirectors programDirectors, ProgramManagers programManagers, ProjectManagers projectManagers, PrincipalInvestigators principalInvestigators, CoInvestigators coInvestigators, String website, Library library) {
@@ -312,5 +339,47 @@ public class Project implements Serializable {
 
     public void setLibrary(Library library) {
         this.library = library;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Project project = (Project) o;
+        return id == project.id &&
+                Objects.equals(lastUpdated, project.lastUpdated) &&
+                Objects.equals(title, project.title) &&
+                Objects.equals(acronym, project.acronym) &&
+                Objects.equals(status, project.status) &&
+                Objects.equals(description, project.description) &&
+                Objects.equals(benefits, project.benefits) &&
+                Objects.equals(startDate, project.startDate) &&
+                Objects.equals(endDate, project.endDate) &&
+                Objects.equals(executiveSummary, project.executiveSummary) &&
+                Objects.equals(technologyMaturityStart, project.technologyMaturityStart) &&
+                Objects.equals(technologyMaturityCurrent, project.technologyMaturityCurrent) &&
+                Objects.equals(technologyMaturityEnd, project.technologyMaturityEnd) &&
+                Objects.equals(primaryTas, project.primaryTas) &&
+                Objects.equals(additionalTas, project.additionalTas) &&
+                Objects.equals(destinations, project.destinations) &&
+                Objects.equals(supportedMissionType, project.supportedMissionType) &&
+                Objects.equals(responsibleProgram, project.responsibleProgram) &&
+                Objects.equals(responsibleMissionDirectorateOrOffice, project.responsibleMissionDirectorateOrOffice) &&
+                Objects.equals(leadOrganization, project.leadOrganization) &&
+                Objects.equals(supportingOrganizations, project.supportingOrganizations) &&
+                Objects.equals(coFundingPartners, project.coFundingPartners) &&
+                Objects.equals(workLocations, project.workLocations) &&
+                Objects.equals(programDirectors, project.programDirectors) &&
+                Objects.equals(programManagers, project.programManagers) &&
+                Objects.equals(projectManagers, project.projectManagers) &&
+                Objects.equals(principalInvestigators, project.principalInvestigators) &&
+                Objects.equals(coInvestigators, project.coInvestigators) &&
+                Objects.equals(website, project.website) &&
+                Objects.equals(library, project.library);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, lastUpdated, title, acronym, status, description, benefits, startDate, endDate, executiveSummary, technologyMaturityStart, technologyMaturityCurrent, technologyMaturityEnd, primaryTas, additionalTas, destinations, supportedMissionType, responsibleProgram, responsibleMissionDirectorateOrOffice, leadOrganization, supportingOrganizations, coFundingPartners, workLocations, programDirectors, programManagers, projectManagers, principalInvestigators, coInvestigators, website, library);
     }
 }

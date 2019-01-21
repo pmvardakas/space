@@ -1,14 +1,19 @@
 package com.esoteric.space.models.project;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Organization {
+public class Organization implements Serializable {
     private String name;
     private String acronym;
     private String city;
     private String state;
 
     public Organization() {
+        this.name = "";
+        this.acronym = "";
+        this.city = "";
+        this.state = "";
     }
 
     public Organization(String name, String acronym, String city, String state) {
@@ -16,22 +21,6 @@ public class Organization {
         this.acronym = acronym;
         this.city = city;
         this.state = state;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Organization that = (Organization) o;
-        return Objects.equals(name, that.name) &&
-                Objects.equals(acronym, that.acronym) &&
-                Objects.equals(city, that.city) &&
-                Objects.equals(state, that.state);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, acronym, city, state);
     }
 
     public String getName() {
@@ -64,5 +53,21 @@ public class Organization {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Organization that = (Organization) o;
+        return Objects.equals(name, that.name) &&
+                Objects.equals(acronym, that.acronym) &&
+                Objects.equals(city, that.city) &&
+                Objects.equals(state, that.state);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, acronym, city, state);
     }
 }

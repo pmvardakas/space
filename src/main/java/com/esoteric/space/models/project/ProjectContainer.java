@@ -7,9 +7,18 @@ public class ProjectContainer implements Serializable {
     private Project project;
 
     public ProjectContainer() {
+        this.project = new Project();
     }
 
     public ProjectContainer(Project project) {
+        this.project = project;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
         this.project = project;
     }
 
@@ -24,13 +33,5 @@ public class ProjectContainer implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(project);
-    }
-
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
     }
 }

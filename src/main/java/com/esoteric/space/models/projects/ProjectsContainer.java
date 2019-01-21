@@ -1,82 +1,55 @@
-
 package com.esoteric.space.models.projects;
 
+import com.esoteric.space.utilities.serialization.ProjectArrayDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "projects"
-})
-public class ProjectsContainer implements Serializable
-{
+@JsonDeserialize(using = ProjectArrayDeserializer.class)
+public class ProjectsContainer implements Serializable {
+    private long totalCount;
+    private List<Project> projects;
 
-    @JsonProperty("projects")
-    private Projects projects;
-    @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-    private final static long serialVersionUID = -4590150669542061695L;
-
-    /**
-     * No args constructor for use in serialization
-     * 
-     */
     public ProjectsContainer() {
+        this.totalCount = 0;
+        this.projects = new ArrayList<Project>();
     }
 
-    /**
-     * 
-     * @param projects
-     */
-    public ProjectsContainer(Projects projects) {
-        super();
+    public ProjectsContainer(long totalCount, List<Project> projects) {
+        this.totalCount = totalCount;
         this.projects = projects;
     }
 
-    @JsonProperty("projects")
-    public Projects getProjects() {
+    public long getTotalCount() {
+        return totalCount;
+    }
+
+    public void setTotalCount(long totalCount) {
+        this.totalCount = totalCount;
+    }
+
+    public List<Project> getProjects() {
         return projects;
     }
 
-    @JsonProperty("projects")
-    public void setProjects(Projects projects) {
+    public void setProjects(List<Project> projects) {
         this.projects = projects;
     }
 
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProjectsContainer that = (ProjectsContainer) o;
+        return totalCount == that.totalCount &&
+                Objects.equals(projects, that.projects);
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(projects).append(additionalProperties).toHashCode();
+        return Objects.hash(totalCount, projects);
     }
-
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-        if ((other instanceof ProjectsContainer) == false) {
-            return false;
-        }
-        ProjectsContainer rhs = ((ProjectsContainer) other);
-        return new EqualsBuilder().append(projects, rhs.projects).append(additionalProperties, rhs.additionalProperties).isEquals();
-    }
-
 }
