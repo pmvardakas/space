@@ -34,8 +34,8 @@ public class ProjectCtrl {
             params = {"id"},
             method = RequestMethod.GET)
     public ProjectContainer project(@RequestParam("id") final int id) {
-        final ProjectContainer project = projectService.getProjectById(id);
+        final ProjectContainer projectContainer = projectService.getProjectById(id);
 
-        return project;
+        return projectContainer;
     }
 }

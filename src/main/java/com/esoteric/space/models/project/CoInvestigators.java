@@ -5,18 +5,18 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.util.List;
 
-public class ProjectManagers {
+public class CoInvestigators {
     @JsonDeserialize(using = StringArrayDeserializer.class)
-    private List<String> projectManager;
+    private List<String> coInvestigator;
 
-    public ProjectManagers() {
+    public CoInvestigators() {
     }
 
-    public List<String> getProjectManager() {
-        return projectManager;
+    public List<String> getCoInvestigator() {
+        return coInvestigator;
     }
 
-    public void setProjectManager(List<String> projectManager) {
-        this.projectManager = projectManager;
+    public void setCoInvestigator(List<String> coInvestigator) {
+        this.coInvestigator = coInvestigator;
     }
 }
