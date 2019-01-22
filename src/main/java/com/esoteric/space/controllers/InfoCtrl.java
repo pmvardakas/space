@@ -1,18 +1,21 @@
 package com.esoteric.space.controllers;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class InfoCtrl {
 
     @RequestMapping("/")
-    public String about() {
-        return "Service to process data from NASA APIs.";
+    public ResponseEntity<String> about() {
+        return new ResponseEntity<>("Service to process data from NASA APIs.", HttpStatus.OK);
     }
 
     @RequestMapping("/version")
-    public String version() {
-        return "ALPHA v0";
+    public ResponseEntity<String> version() {
+        return new ResponseEntity<>("ALPHA v0", HttpStatus.OK);
     }
 }
