@@ -1,5 +1,9 @@
 package com.esoteric.space.models.project;
 
+import com.esoteric.space.utilities.serialization.LibraryDeserializer;
+import com.esoteric.space.utilities.serialization.TechnologyAreasDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -17,8 +21,12 @@ public class Project implements Serializable {
     private String technologyMaturityStart;
     private String technologyMaturityCurrent;
     private String technologyMaturityEnd;
+
+    @JsonDeserialize(using = TechnologyAreasDeserializer.class)
     private TechnologyAreas primaryTas;
-    private String additionalTas;
+
+    @JsonDeserialize(using = TechnologyAreasDeserializer.class)
+    private TechnologyAreas additionalTas;
     private Destinations destinations;
     private String supportedMissionType;
     private String responsibleProgram;
@@ -33,6 +41,8 @@ public class Project implements Serializable {
     private PrincipalInvestigators principalInvestigators;
     private CoInvestigators coInvestigators;
     private String website;
+
+    @JsonDeserialize(using = LibraryDeserializer.class)
     private Library library;
 
     public Project() {
@@ -50,7 +60,7 @@ public class Project implements Serializable {
         this.technologyMaturityCurrent = "";
         this.technologyMaturityEnd = "";
         this.primaryTas = new TechnologyAreas();
-        this.additionalTas = "";
+        this.additionalTas = new TechnologyAreas();
         this.destinations = new Destinations();
         this.supportedMissionType = "";
         this.responsibleProgram = "";
@@ -68,7 +78,7 @@ public class Project implements Serializable {
         this.library = new Library();
     }
 
-    public Project(long id, String lastUpdated, String title, String acronym, String status, String description, String benefits, String startDate, String endDate, String executiveSummary, String technologyMaturityStart, String technologyMaturityCurrent, String technologyMaturityEnd, TechnologyAreas primaryTas, String additionalTas, Destinations destinations, String supportedMissionType, String responsibleProgram, String responsibleMissionDirectorateOrOffice, Organization leadOrganization, Organizations supportingOrganizations, Organizations coFundingPartners, WorkLocations workLocations, ProgramDirectors programDirectors, ProgramManagers programManagers, ProjectManagers projectManagers, PrincipalInvestigators principalInvestigators, CoInvestigators coInvestigators, String website, Library library) {
+    public Project(long id, String lastUpdated, String title, String acronym, String status, String description, String benefits, String startDate, String endDate, String executiveSummary, String technologyMaturityStart, String technologyMaturityCurrent, String technologyMaturityEnd, TechnologyAreas primaryTas, TechnologyAreas additionalTas, Destinations destinations, String supportedMissionType, String responsibleProgram, String responsibleMissionDirectorateOrOffice, Organization leadOrganization, Organizations supportingOrganizations, Organizations coFundingPartners, WorkLocations workLocations, ProgramDirectors programDirectors, ProgramManagers programManagers, ProjectManagers projectManagers, PrincipalInvestigators principalInvestigators, CoInvestigators coInvestigators, String website, Library library) {
         this.id = id;
         this.lastUpdated = lastUpdated;
         this.title = title;
@@ -213,11 +223,11 @@ public class Project implements Serializable {
         this.primaryTas = primaryTas;
     }
 
-    public String getAdditionalTas() {
+    public TechnologyAreas getAdditionalTas() {
         return additionalTas;
     }
 
-    public void setAdditionalTas(String additionalTas) {
+    public void setAdditionalTas(TechnologyAreas additionalTas) {
         this.additionalTas = additionalTas;
     }
 

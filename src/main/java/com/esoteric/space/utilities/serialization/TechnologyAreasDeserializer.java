@@ -3,6 +3,7 @@ package com.esoteric.space.utilities.serialization;
 import com.esoteric.space.models.project.File;
 import com.esoteric.space.models.project.LibraryItem;
 import com.esoteric.space.models.project.TechnologyArea;
+import com.esoteric.space.models.project.TechnologyAreas;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -14,23 +15,32 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class TechnologyAreaArrayDeserializer extends JsonDeserializer<List<TechnologyArea>> {
+public class TechnologyAreasDeserializer extends JsonDeserializer<TechnologyAreas> {
 
     @Override
-    public List<TechnologyArea> deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+    public TechnologyAreas deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
         ObjectCodec oc = p.getCodec();
         JsonNode node = oc.readTree(p);
-        List<TechnologyArea> out = new ArrayList<TechnologyArea>();
+        TechnologyAreas out = new TechnologyAreas();
+        List<TechnologyArea> list = new ArrayList<>();
 
-        if (node.isArray()) {
-            for (Iterator<JsonNode> i = node.iterator(); i.hasNext(); ) {
-                out.add(mapNodeToTechnologyArea(i.next()));
+        if (!node.has("technologyAreas")) {
+            TechnologyArea techArea = new TechnologyArea();
+            list.add(techArea);
+        } else {
+            JsonNode technologyAreasNode = node.get("technologyAreas");
+            if (technologyAreasNode.isArray()) {
+                for (Iterator<JsonNode> i = technologyAreasNode.iterator(); i.hasNext(); ) {
+                    list.add(mapNodeToTechnologyArea(i.next()));
+                }
+            }
+
+            if (technologyAreasNode.isObject()) {
+                list.add(mapNodeToTechnologyArea(technologyAreasNode));
             }
         }
 
-        if (node.isObject()) {
-            out.add(mapNodeToTechnologyArea(node));
-        }
+        out.setTechnologyAreas(list);
 
         return out;
     }

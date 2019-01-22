@@ -1,6 +1,7 @@
 package com.esoteric.space.utilities.serialization;
 
 import com.esoteric.space.models.project.File;
+import com.esoteric.space.models.project.Library;
 import com.esoteric.space.models.project.LibraryItem;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.ObjectCodec;
@@ -13,25 +14,37 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class LibraryArrayDeserializer extends JsonDeserializer<List<LibraryItem>> {
+public class LibraryDeserializer extends JsonDeserializer<Library> {
 
     @Override
-    public List<LibraryItem> deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+    public Library deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
         ObjectCodec oc = p.getCodec();
         JsonNode node = oc.readTree(p);
-        List<LibraryItem> out = new ArrayList<LibraryItem>();
+        Library library = new Library();
 
-        if (node.isArray()) {
-            for (Iterator<JsonNode> i = node.iterator(); i.hasNext(); ) {
-                out.add(mapNodeToLibraryItem(i.next()));
+        if (!node.has("library")) {
+            List<LibraryItem> list = new ArrayList<LibraryItem>();
+            LibraryItem item = new LibraryItem();
+            list.add(item);
+
+            library.setLibraryItem(list);
+        } else {
+
+            List<LibraryItem> list = new ArrayList<LibraryItem>();
+            if (node.isArray()) {
+                for (Iterator<JsonNode> i = node.iterator(); i.hasNext(); ) {
+                    list.add(mapNodeToLibraryItem(i.next()));
+                }
             }
+
+            if (node.isObject()) {
+                list.add(mapNodeToLibraryItem(node));
+            }
+
+            library.setLibraryItem(list);
         }
 
-        if (node.isObject()) {
-            out.add(mapNodeToLibraryItem(node));
-        }
-
-        return out;
+        return library;
     }
 
     private LibraryItem mapNodeToLibraryItem(JsonNode node) {

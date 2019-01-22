@@ -1,15 +1,11 @@
 package com.esoteric.space.models.project;
 
-import com.esoteric.space.utilities.serialization.LibraryArrayDeserializer;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Library implements Serializable {
-    @JsonDeserialize(using = LibraryArrayDeserializer.class)
     private List<LibraryItem> libraryItem;
 
     public Library() {
